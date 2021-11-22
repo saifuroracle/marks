@@ -60,26 +60,23 @@
                                 <td>{{ getPaginatedSerial($paginator, $i) }}</td>
                                 <td>
                                     <div class="overflow-hidden">
-                                        <p class="mb-0 font-weight-medium"><a href="javascript: void(0);">{{$user->username}}</a></p>
+                                        <p class="mb-0 font-weight-medium"><a href="javascript: void(0);">{{$user->name}}</a></p>
                                         <span class="font-13 my-0">{{$user->email}}</span> <br>
                                     </div>
                                 </td>
                                 <td>{{$user->roles_comma_seperated}}</td>
                                 <td>@include('includes.status', ['status' => [['key' => 'Active', 'value' => 1, 'class'=> 'badge-primary'], ['key' => 'Inactive', 'value' => 0, 'class'=> 'badge-warning']], 'selected'=> $user->status])</td>
                                 <td>
-                                    {{-- @if (in_array("user update", session('permissions'))) --}}
-                                        <div class="flex align-items-center list-user-action">
-                                            <a class="iq-bg-success" title="" data-original-title="Edit"  href="#" data-toggle="modal" data-target="#update_modal"
-                                                    data-id="{{$user->id}}"
-                                                    data-username="{{$user->username}}"
-                                                    data-email="{{$user->email}}"
-                                                    data-status="{{$user->status}}"
-                                                    data-roles="{{$user->roles_comma_seperated}}"
-                                            >
-                                                <i class="ri-pencil-line"></i>
-                                            </a>
-                                        </div>
-                                    {{-- @endif --}}
+                                    <a class="btn btn-primary btn-sm"  title="" data-original-title="Edit"  href="#" data-toggle="modal" data-target="#update_modal"
+                                        data-id="{{$user->id}}"
+                                        data-name="{{$user->name}}"
+                                        data-email="{{$user->email}}"
+                                        data-status="{{$user->status}}"
+                                        data-roles="{{$user->roles_comma_seperated}}"
+                                    >Edit</a>
+                                    {{-- {!! Form::open(['method' => 'POST','route' => ['deleteuser', ['id'=>$user->id]],'style'=>'display:inline']) !!}
+                                        {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
+                                    {!! Form::close() !!} --}}
                                 </td>
                             </tr>
                         @endforeach
@@ -185,9 +182,9 @@
 
                     <div class="col-md-12">
                         <div class="form-group row required">
-                            <label class="col-sm-4 col-form-label control-label">Username</label>
+                            <label class="col-sm-4 col-form-label control-label">Name</label>
                             <div class="col-sm-8">
-                                {{Form::text('username', '', ['class' => 'form-control username', 'required' => 'required'])}}
+                                {{Form::text('name', '', ['class' => 'form-control name', 'required' => 'required'])}}
                             </div>
                         </div>
                     </div>
@@ -283,7 +280,7 @@
               var button = $(event.relatedTarget) ;
 
               var id = button.data('id') ;
-              var username = button.data('username') ;
+              var name = button.data('name') ;
               var email = button.data('email') ;
               var status = button.data('status') ;
               var roles = button.data('roles') ;
@@ -296,7 +293,7 @@
               var modal = $(this);
 
               modal.find('.modal-body .id').val(id);
-              modal.find('.modal-body .username').val(username);
+              modal.find('.modal-body .name').val(name);
               modal.find('.modal-body .email').val(email);
               if (status==1) {
                 $('#status_active_e').prop('checked', true);

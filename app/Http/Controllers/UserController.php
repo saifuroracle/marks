@@ -70,7 +70,7 @@ class UserController extends Controller
     }
 
 
-    public function updateUser(Request $request)
+    public function editusersave(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'id' => 'required|numeric|exists:users,id',
