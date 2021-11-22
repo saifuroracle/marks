@@ -1,59 +1,21 @@
 <?php
-
-
-
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
-
 use App\Http\Controllers\Controller;
-
 use Spatie\Permission\Models\Role;
-
 use Spatie\Permission\Models\Permission;
-
 use DB;
-
+use App\Models\Role as Role_c;
 
 
 class RoleController extends Controller
 
 {
 
-    /**
-
-     * Display a listing of the resource.
-
-     *
-
-     * @return \Illuminate\Http\Response
-
-     */
-
-    // function __construct()
-    // {
-    //     $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index', 'store']]);
-    //     $this->middleware('permission:role-create', ['only' => ['create', 'store']]);
-    //     $this->middleware('permission:role-edit', ['only' => ['edit', 'update']]);
-    //     $this->middleware('permission:role-delete', ['only' => ['destroy']]);
-    // }
-
-
-
-    /**
-
-     * Display a listing of the resource.
-
-     *
-
-     * @return \Illuminate\Http\Response
-
-     */
-
     public function manageroles(Request $request)
     {
-        $roles = Role::paginate(1);
+        $roles = Role_c::paginate(1);
         $paginator = getFormattedPaginatedArray($roles);
 
         $permissionsData = Permission::orderBy('name','asc')->whereNull('deleted_at')->get();
