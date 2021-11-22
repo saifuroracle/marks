@@ -64,7 +64,7 @@ class RoleController extends Controller
     public function editrolesave(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'id' => 'required|numeric',
+            'id' => 'required|numeric|exists:roles,id',
             'name' => 'required|string',
             'guard_name' => 'required|string',
             'permissions' => 'required',

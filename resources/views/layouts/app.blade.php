@@ -63,6 +63,8 @@
 
                                     <a class="dropdown-item" href="{{ route('manageusers') }}">Manage Users</a>
                                     <a class="dropdown-item" href="{{ route('manageroles') }}">Manage Roles</a>
+                                    <a class="dropdown-item" href="{{ route('managepermissions') }}">Manage Permissions</a>
+
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
