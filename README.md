@@ -23,3 +23,13 @@
     php artisan serve
 
 ==========Cache clear===============
+
+## For local Development 
+
+```
+   git clone repo
+   composer install
+   cp .\.env.example .env   
+   php .\artisan key:generate   
+   php artisan serve 
+```
