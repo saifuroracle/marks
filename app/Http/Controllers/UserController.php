@@ -70,6 +70,59 @@ class UserController extends Controller
     }
 
 
+    public function updateUser(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|numeric|exists:users,id',
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users,email,'.$request->id,
+            'roles' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withInput()->with('fail', $validator->errors()->all());
+        }
+
+        $input = $request->all();
+
+        if(!empty($input['password'])){
+
+            $input['password'] = bcrypt($input['password']);
+
+        }else{
+            $input = Arr::except($input,array('password'));
+        }
+
+        $input = Arr::except($input,array('roles'));
+
+        $user = User::find($request->id);
+
+        DB::beginTransaction();
+        try {
+            $user->update($input);
+            // $user->assignRole($request->input('roles'));
+            DB::table('model_has_roles')->where('model_id', (int) $request->id)->update(['deleted_at' => getNow()]);
+            $roles = DB::table('roles')->get();
+            foreach ($request->roles as $key => $value)
+            {
+                DB::table('model_has_roles')->insert(
+                    [
+                        'role_id' => $roles->where('name', $value)->pluck('id')->first(),
+                        'model_type' => 'App\Models\User',
+                        'model_id' => $request->id,
+                    ]
+                );
+            }
+
+            DB::commit();
+            return back()->with('success', ['User updated successfully']);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->withInput()->with('fail', [$e->getMessage()]);
+        }
+    }
+
+
 
     /**
 
