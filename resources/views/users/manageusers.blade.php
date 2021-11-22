@@ -62,7 +62,6 @@
                                     <div class="overflow-hidden">
                                         <p class="mb-0 font-weight-medium"><a href="javascript: void(0);">{{$user->username}}</a></p>
                                         <span class="font-13 my-0">{{$user->email}}</span> <br>
-                                        <span class="font-13 my-0">{{$user->mobile}}</span>
                                     </div>
                                 </td>
                                 <td>{{$user->roles_comma_seperated}}</td>
@@ -75,7 +74,6 @@
                                                     data-username="{{$user->username}}"
                                                     data-email="{{$user->email}}"
                                                     data-status="{{$user->status}}"
-                                                    data-mobile="{{$user->mobile}}"
                                                     data-roles="{{$user->roles_comma_seperated}}"
                                             >
                                                 <i class="ri-pencil-line"></i>
@@ -135,14 +133,6 @@
                         </div>
                     </div>
 
-                    <div class="col-md-12">
-                        <div class="form-group row">
-                            <label class="col-sm-4 col-form-label control-label">Mobile</label>
-                            <div class="col-sm-8">
-                                {{Form::text('mobile', '', ['class' => 'form-control'])}}
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="col-md-12">
                         <div class="form-group row required">
@@ -215,15 +205,6 @@
                             <label class="col-sm-4 col-form-label">Password</label>
                             <div class="col-sm-8">
                                 {{Form::text('password', '', ['class' => 'form-control'])}}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12">
-                        <div class="form-group row">
-                            <label class="col-sm-4 col-form-label control-label">Mobile</label>
-                            <div class="col-sm-8">
-                                {{Form::text('mobile', '', ['class' => 'form-control mobile'])}}
                             </div>
                         </div>
                     </div>
@@ -304,7 +285,6 @@
               var id = button.data('id') ;
               var username = button.data('username') ;
               var email = button.data('email') ;
-              var mobile = button.data('mobile') ;
               var status = button.data('status') ;
               var roles = button.data('roles') ;
             //   console.log(id)
@@ -318,7 +298,6 @@
               modal.find('.modal-body .id').val(id);
               modal.find('.modal-body .username').val(username);
               modal.find('.modal-body .email').val(email);
-              modal.find('.modal-body .mobile').val(mobile);
               if (status==1) {
                 $('#status_active_e').prop('checked', true);
               }
