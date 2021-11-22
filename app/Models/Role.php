@@ -36,7 +36,7 @@ class Role extends Model
 
     public function getPermissionsListAttribute()
     {
-        $permissions = $this->permissions()->get();
+        $permissions = $this->permissions()->wherePivot('deleted_at', null)->get();
         $arr = [];
         foreach ($permissions as $key => $item)
         {
