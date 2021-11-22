@@ -825,4 +825,9 @@
         return ($newData*100)/$oldData;
     }
 
+
+    function getPaginatedSerial($paginator, $index)
+    {
+        return $paginator->current_page>1 ? (($paginator->current_page-1) * $paginator->record_per_page+$index+1) :  $index+1 ;
+    }
 ?>

@@ -17,6 +17,11 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => ['auth']], function() {
-    Route::resource('roles', RoleController::class);
+    // Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
 });
+
+// manage roles routes
+Route::get('manage-roles', [RoleController::class, 'manageroles'])->name('manageroles');
+Route::post('/createrolesave', 'RoleController@createrolesave')->name('createrolesave');
+Route::post('/editrolesave', 'RoleController@editrolesave')->name('editrolesave');

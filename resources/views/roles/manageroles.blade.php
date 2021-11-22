@@ -1,0 +1,87 @@
+@extends('layouts.app')
+
+@section('content')
+
+<script src="{{ asset('/assets/js/jquery.min.js') }}"></script>
+
+
+<!--body wrapper start-->
+<div class="wrapper">
+
+    @include('includes.alertmessages')
+
+    <div class="card mt-2">
+        <div class="card-header">
+            <h3 class="text-center">Manage Roles</h3>
+        </div>
+        <div class="card-body">
+
+            <div class="row mb-2 ml-3  float-left">
+                <a href="#" data-toggle="modal" data-target="#create_modal">
+                    <button id="editable-sample_new" class="btn btn-primary">
+                        <i class="las la-plus mr-1"></i>
+                        Add New Role
+                    </button>
+                </a>
+            </div>
+
+            <form action="{{route('manageroles')}}" method="get">
+                <div class="col-md-4 input-group mb-3 float-right">
+                    @csrf
+                    <input type="text" id="search" name="search"  value="{{request('search')}}" placeholder="Search..." class="form-control"/>
+                    <div class="input-group-append">
+                        <button class="input-group-text bg-primary text-white" id="basic-addon2"  type="submit">
+                            <i class="las la-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="table-responsive my-2">
+                <table class="table table-centered mb-0">
+                    <thead>
+                        <tr>
+                            <th>Serial</th>
+                            <th>Role</th>
+                            <th>Permissions</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($roles as $i =>  $role)
+                            <tr>
+                                {{-- <td>{{ getPaginatedSerial($paginator, $i) }}</td> --}}
+                                <td>
+                                    <div class="overflow-hidden">
+                                        <p class="mb-0 font-weight-medium"><a href="javascript: void(0);">{{$role->name}}</a></p>
+                                    </div>
+                                </td>
+                                <td>{{ucwords($role->permissions_comma_seperated)}}</td>
+                                <td>
+                                    <div class="flex align-items-center list-user-action">
+                                        <a class="iq-bg-success" title="" data-original-title="Edit"  href="#" data-toggle="modal" data-target="#update_modal"
+                                                data-id="{{$role->id}}"
+                                                data-name="{{$role->name}}"
+                                                data-permissions="{{$role->permissions_comma_seperated}}"
+                                        >
+                                            <i class="ri-pencil-line"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+
+            </div>
+
+            {{-- @include('/includes/paginate') --}}
+
+        </div>
+    </div>
+
+</div>
+<!--body wrapper end-->
+
+
+@endsection
