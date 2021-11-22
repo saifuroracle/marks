@@ -64,7 +64,7 @@
                                                 data-name="{{$role->name}}"
                                                 data-permissions="{{$role->permissions_comma_seperated}}"
                                         >
-                                            <i class="ri-pencil-line"></i>
+                                            <i class="fa fa-edit"></i>
                                         </a>
                                     </div>
                                 </td>

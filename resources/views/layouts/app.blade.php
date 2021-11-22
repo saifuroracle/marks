@@ -18,6 +18,7 @@
     <link href="{{ asset('/assets/css/app.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('/assets/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('/assets/css/font-awesome.min.css') }}">
 
 </head>
 <body>
