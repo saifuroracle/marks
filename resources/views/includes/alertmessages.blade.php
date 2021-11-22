@@ -30,7 +30,7 @@
 <script>
     Swal.fire({
         title: 'Error!',
-        text: '{!! $errors->all() !!}',
+        text: '{!! $errors->all()[0] !!}',
         icon: 'error',
         confirmButtonText: 'Ok'
     })
