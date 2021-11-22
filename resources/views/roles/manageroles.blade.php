@@ -54,6 +54,12 @@
                                         >
                                             <i class="fa fa-edit"></i>
                                         </a>
+                                        <a class="iq-bg-success"  onclick="event.preventDefault(); document.getElementById('deleterole-{{$role->id}}').submit();">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                        <form id="deleterole-{{$role->id}}" method="post" action="{{ route('deleterole', ['id'=>$role->id]) }}" style="display: none;">
+                                                @csrf
+                                        </form>
                                     </div>
                                 </td>
                             </tr>

@@ -13,7 +13,7 @@ class RoleController extends Controller
 {
     public function manageroles(Request $request)
     {
-        $rolesData = Role_c::paginate(10);
+        $rolesData = Role_c::whereNull('deleted_at')->paginate(10);
         $roles = $rolesData->items();
         $paginator = getFormattedPaginatedArray($rolesData);
 
@@ -111,7 +111,7 @@ class RoleController extends Controller
 
         DB::beginTransaction();
         try {
-            Role::find($request->id)->update(['deleted_at' => getNow()]);
+            Role_c::find($request->id)->update(['deleted_at' => getNow()]);
             return back()->with('success', ['Role softly deleted successfully']);
         } catch (\Exception $e) {
             DB::rollback();
