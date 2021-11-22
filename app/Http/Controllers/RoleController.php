@@ -75,7 +75,7 @@ class RoleController extends Controller
 
         DB::beginTransaction();
         try {
-            $role = Role::find($request->id);
+            $role = Role::find((int) $request->id);
             $role->update([
                 'name' => $request->name,
                 'guard_name' => $request->guard_name,
