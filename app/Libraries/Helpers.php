@@ -727,7 +727,7 @@
 
     function getFormattedPaginatedArray($data)
     {
-        return [
+        return (object) [
             'current_page' => $data->currentPage(),
             'total_pages' => $data->lastPage(),
             'previous_page_url' => $data->previousPageUrl(),

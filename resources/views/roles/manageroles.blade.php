@@ -75,7 +75,7 @@
 
             </div>
 
-            {{-- @include('/includes/paginate') --}}
+            @include('/includes/paginate')
 
         </div>
     </div>
