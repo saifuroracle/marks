@@ -1,38 +1,12 @@
-{{-- @if (session('success'))
-    <div class="alert alert-success fade in">
-        <button type="button" class="close close-sm" data-dismiss="alert">
-            <i class="fa fa-times"></i>
-        </button>
-        <strong>Success!</strong> {{ session('success') }}
-    </div>
-@endif
 
 
-
-
-@if ($errors->any())
-    <div class="alert alert-block alert-danger fade in">
-        <button type="button" class="close close-sm" data-dismiss="alert">
-            <i class="fa fa-times"></i>
-        </button>
-        <strong>Error!</strong> Change a few things up and try submitting again.
-
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif --}}
-
-
-<script src="{{ asset('/js/sweetalert2.all.min.js') }}"></script>
+<script src="{{ asset('/assets/js/sweetalert2.all.min.js') }}"></script>
 
 @if (session('success'))
 <script>
     Swal.fire({
         title: 'Success!',
-        text: '{!! session('success')[0] !!}',
+        text: '{!! session('success') !!}',
         icon: 'success',
         confirmButtonText: 'Ok'
     })
@@ -44,7 +18,7 @@
 <script>
     Swal.fire({
         title: 'Error!',
-        text: '{!! session('fail')[0] !!}',
+        text: '{!! session('fail') !!}',
         icon: 'error',
         confirmButtonText: 'Ok'
     })
@@ -56,7 +30,7 @@
 <script>
     Swal.fire({
         title: 'Error!',
-        text: '{!! $errors->all()[0] !!}',
+        text: '{!! $errors->all() !!}',
         icon: 'error',
         confirmButtonText: 'Ok'
     })

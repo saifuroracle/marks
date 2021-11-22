@@ -22,6 +22,6 @@ Route::group(['middleware' => ['auth']], function() {
 });
 
 // manage roles routes
-Route::get('manage-roles', [RoleController::class, 'manageroles'])->name('manageroles');
-Route::post('/createrolesave', 'RoleController@createrolesave')->name('createrolesave');
-Route::post('/editrolesave', 'RoleController@editrolesave')->name('editrolesave');
+Route::get('/manage-roles', [RoleController::class, 'manageroles'])->name('manageroles');
+Route::post('/createrolesave', [RoleController::class, 'createrolesave'])->name('createrolesave');
+Route::post('/editrolesave', [RoleController::class, 'editrolesave'])->name('editrolesave');

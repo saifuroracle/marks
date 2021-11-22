@@ -1,18 +1,16 @@
 <?php
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 use DB;
+use Illuminate\Http\Request;
 use App\Models\Role as Role_c;
-
+use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
+use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Validator;
 
 class RoleController extends Controller
-
 {
-
     public function manageroles(Request $request)
     {
         $roles = Role_c::paginate(1);
@@ -24,22 +22,45 @@ class RoleController extends Controller
         return view('roles.manageroles', compact('roles', 'paginator', 'permissions'));
     }
 
-
-    /**
-
-     * Show the form for creating a new resource.
-
-     *
-
-     * @return \Illuminate\Http\Response
-
-     */
-
-    public function create()
+    public function createrolesave(Request $request)
     {
-        $permission = Permission::get();
-        return view('roles.create', compact('permission'));
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'permissions' => 'required',
+            'guard_name' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return $this->set_response(null, 422, 'failed', $validator->errors()->all());
+        }
+
+        $req = $request->all();
+
+        DB::beginTransaction();
+        try {
+            $role = Role::create([
+                'name' => $request->name,
+                'guard_name' => $request->guard_name,
+            ]);
+            // $role->syncPermissions($request->permissions);
+            $permissions = DB::table('permissions')->get();
+            foreach ($request->permissions as $key => $value)
+            {
+                DB::table('role_has_permissions')->insert(
+                    [
+                        'permission_id' => $permissions->where('name', $value)->pluck('id')->first(),
+                        'role_id' => $role->id
+                    ]
+                );
+            }
+            DB::commit();
+            return back()->with('success','Role created successfully');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->withInput()->with('fail', $e->getMessage());
+        }
     }
+
+
 
 
 
