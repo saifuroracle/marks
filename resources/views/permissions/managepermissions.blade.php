@@ -17,7 +17,7 @@
         </div>
         <div class="card-body">
 
-            {{-- @if (in_array("permission create", session('permissions'))) --}}
+            @can('permission create')
                 <div class="row mb-2 ml-3 float-left">
                     <a href="#" data-toggle="modal" data-target="#create_modal">
                         <button id="editable-sample_new" class="btn btn-primary">
@@ -26,7 +26,7 @@
                         </button>
                     </a>
                 </div>
-            {{-- @endif --}}
+            @endcan
 
             <form action="{{route('managepermissions')}}" method="get">
                 <div class="col-md-4 input-group mb-3 float-right">
@@ -59,13 +59,17 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a class="btn btn-primary btn-sm"  title="" data-original-title="Edit"  href="#" data-toggle="modal" data-target="#update_modal"
-                                        data-id="{{$permission->id}}"
-                                        data-name="{{$permission->name}}"
-                                    >Edit</a>
-                                    {!! Form::open(['method' => 'POST','route' => ['deletepermission', ['id'=>$permission->id]],'style'=>'display:inline']) !!}
-                                        {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
-                                    {!! Form::close() !!}
+                                    @can('permission update')
+                                        <a class="btn btn-primary btn-sm"  title="" data-original-title="Edit"  href="#" data-toggle="modal" data-target="#update_modal"
+                                            data-id="{{$permission->id}}"
+                                            data-name="{{$permission->name}}"
+                                        >Edit</a>
+                                    @endcan
+                                    @can('permission delete')
+                                        {!! Form::open(['method' => 'POST','route' => ['deletepermission', ['id'=>$permission->id]],'style'=>'display:inline']) !!}
+                                            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
+                                        {!! Form::close() !!}
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

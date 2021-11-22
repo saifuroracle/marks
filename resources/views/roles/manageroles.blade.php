@@ -16,14 +16,16 @@
         </div>
         <div class="card-body">
 
-            <div class="row mb-2 ml-3  float-left">
-                <a href="#" data-toggle="modal" data-target="#create_modal">
-                    <button id="editable-sample_new" class="btn btn-primary">
-                        <i class="las la-plus mr-1"></i>
-                        Add New Role
-                    </button>
-                </a>
-            </div>
+            @can('role create')
+                <div class="row mb-2 ml-3  float-left">
+                    <a href="#" data-toggle="modal" data-target="#create_modal">
+                        <button id="editable-sample_new" class="btn btn-primary">
+                            <i class="las la-plus mr-1"></i>
+                            Add New Role
+                        </button>
+                    </a>
+                </div>
+            @endcan
 
             <div class="table-responsive my-2">
                 <table class="table table-centered mb-0">
@@ -46,14 +48,18 @@
                                 </td>
                                 <td>{{ucwords($role->permissions_comma_seperated)}}</td>
                                 <td>
-                                    <a class="btn btn-primary btn-sm"  title="" data-original-title="Edit"  href="#" data-toggle="modal" data-target="#update_modal"
-                                        data-id="{{$role->id}}"
-                                        data-name="{{$role->name}}"
-                                        data-permissions="{{$role->permissions_comma_seperated}}"
-                                    >Edit</a>
-                                    {!! Form::open(['method' => 'POST','route' => ['deleterole', ['id'=>$role->id]],'style'=>'display:inline']) !!}
-                                        {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
-                                    {!! Form::close() !!}
+                                    @can('role update')
+                                        <a class="btn btn-primary btn-sm"  title="" data-original-title="Edit"  href="#" data-toggle="modal" data-target="#update_modal"
+                                            data-id="{{$role->id}}"
+                                            data-name="{{$role->name}}"
+                                            data-permissions="{{$role->permissions_comma_seperated}}"
+                                        >Edit</a>
+                                    @endcan
+                                    @can('role delete')
+                                        {!! Form::open(['method' => 'POST','route' => ['deleterole', ['id'=>$role->id]],'style'=>'display:inline']) !!}
+                                            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
+                                        {!! Form::close() !!}
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach
