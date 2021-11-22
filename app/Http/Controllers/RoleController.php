@@ -26,14 +26,13 @@ class RoleController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'permissions' => 'required',
+            // 'permissions' => 'required',
             'guard_name' => 'required',
         ]);
         if ($validator->fails()) {
-            return $this->set_response(null, 422, 'failed', $validator->errors()->all());
+            return back()->withInput()->with('fail', $validator->errors()->all());
         }
 
-        $req = $request->all();
 
         DB::beginTransaction();
         try {
@@ -53,12 +52,15 @@ class RoleController extends Controller
                 );
             }
             DB::commit();
-            return back()->with('success','Role created successfully');
+            return back()->with('success', ['Role created successfully']);
         } catch (\Exception $e) {
             DB::rollback();
-            return back()->withInput()->with('fail', $e->getMessage());
+            return back()->withInput()->with('fail', [$e->getMessage()]);
         }
     }
+
+
+
 
 
 

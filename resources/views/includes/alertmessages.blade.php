@@ -6,7 +6,7 @@
 <script>
     Swal.fire({
         title: 'Success!',
-        text: '{!! session('success') !!}',
+        text: '{!! session('success')[0] !!}',
         icon: 'success',
         confirmButtonText: 'Ok'
     })
@@ -18,7 +18,7 @@
 <script>
     Swal.fire({
         title: 'Error!',
-        text: '{!! session('fail') !!}',
+        text: '{!! session('fail')[0] !!}',
         icon: 'error',
         confirmButtonText: 'Ok'
     })

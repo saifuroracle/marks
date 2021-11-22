@@ -25,18 +25,6 @@
                 </a>
             </div>
 
-            {{-- <form action="{{route('manageroles')}}" method="get">
-                <div class="col-md-4 input-group mb-3 float-right">
-                    @csrf
-                    <input type="text" id="search" name="search"  value="{{request('search')}}" placeholder="Search..." class="form-control"/>
-                    <div class="input-group-append">
-                        <button class="input-group-text bg-primary text-white" id="basic-addon2"  type="submit">
-                            <i class="las la-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </form> --}}
-
             <div class="table-responsive my-2">
                 <table class="table table-centered mb-0">
                     <thead>
