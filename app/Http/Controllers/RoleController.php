@@ -111,7 +111,14 @@ class RoleController extends Controller
 
         DB::beginTransaction();
         try {
+            $role = Role_c::find($request->id);
+            $role->update([
+                'deleted_at'=> getNow()
+            ]);
             DB::table('roles')->where('id', (int) $request->id)->update(['deleted_at'=> getNow()]);
+            DB::table('roles')->where('id', $request->id)->update(['deleted_at'=> getNow()]);
+            DB::table('roles')->where('id', $request->id)->update(['deleted_at'=> '2021-11-22 14:22:15']);
+
 
             return back()->with('success', ['Role softly deleted successfully']);
         } catch (\Exception $e) {

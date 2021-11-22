@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Models\User;
 use App\Models\Permission;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Role as Role_c;
 
 class Role extends Model
 {
@@ -18,6 +17,10 @@ class Role extends Model
         'created_at',
         'updated_at',
         'deleted_at',
+    ];
+
+    protected $casts = [
+        'id' => 'integer',
     ];
 
     public function users()
