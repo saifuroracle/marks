@@ -19,7 +19,7 @@
         </div>
         <div class="card-body">
 
-            {{-- @if (in_array("user create", session('permissions'))) --}}
+            @can('user create')
                 <div class="row mb-2 ml-3 float-left">
                     <a href="#" data-toggle="modal" data-target="#create_modal">
                         <button id="editable-sample_new" class="btn btn-primary">
@@ -28,7 +28,7 @@
                         </button>
                     </a>
                 </div>
-            {{-- @endif --}}
+            @endcan
 
             <form action="{{route('manageusers')}}" method="get">
                 <div class="col-md-4 input-group mb-3 float-right">
@@ -67,16 +67,15 @@
                                 <td>{{$user->roles_comma_seperated}}</td>
                                 <td>@include('includes.status', ['status' => [['key' => 'Active', 'value' => 1, 'class'=> 'badge-primary'], ['key' => 'Inactive', 'value' => 0, 'class'=> 'badge-warning']], 'selected'=> $user->status])</td>
                                 <td>
-                                    <a class="btn btn-primary btn-sm"  title="" data-original-title="Edit"  href="#" data-toggle="modal" data-target="#update_modal"
-                                        data-id="{{$user->id}}"
-                                        data-name="{{$user->name}}"
-                                        data-email="{{$user->email}}"
-                                        data-status="{{$user->status}}"
-                                        data-roles="{{$user->roles_comma_seperated}}"
-                                    >Edit</a>
-                                    {{-- {!! Form::open(['method' => 'POST','route' => ['deleteuser', ['id'=>$user->id]],'style'=>'display:inline']) !!}
-                                        {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
-                                    {!! Form::close() !!} --}}
+                                    @can('user update')
+                                        <a class="btn btn-primary btn-sm"  title="" data-original-title="Edit"  href="#" data-toggle="modal" data-target="#update_modal"
+                                            data-id="{{$user->id}}"
+                                            data-name="{{$user->name}}"
+                                            data-email="{{$user->email}}"
+                                            data-status="{{$user->status}}"
+                                            data-roles="{{$user->roles_comma_seperated}}"
+                                        >Edit</a>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach
