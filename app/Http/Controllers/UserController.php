@@ -29,7 +29,7 @@ class UserController extends Controller
     public function createusersave(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'username' => 'required',
+            'name' => 'required',
             'email' => 'required|email|unique:users|max:255',
             'password' => 'required|string|min:8',
             'roles' => 'required',

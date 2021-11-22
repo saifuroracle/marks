@@ -109,9 +109,9 @@
                 <div class="modal-body">
                     <div class="col-md-12">
                         <div class="form-group row required">
-                            <label class="col-sm-4 col-form-label control-label">Username</label>
+                            <label class="col-sm-4 col-form-label control-label">Name</label>
                             <div class="col-sm-8">
-                                {{Form::text('username', '', ['class' => 'form-control', 'required' => 'required'])}}
+                                {{Form::text('name', '', ['class' => 'form-control', 'required' => 'required'])}}
                             </div>
                         </div>
                     </div>
