@@ -50,7 +50,7 @@
                     <tbody>
                         @foreach ($roles as $i =>  $role)
                             <tr>
-                                {{-- <td>{{ getPaginatedSerial($paginator, $i) }}</td> --}}
+                                <td>{{ getPaginatedSerial($paginator, $i) }}</td>
                                 <td>
                                     <div class="overflow-hidden">
                                         <p class="mb-0 font-weight-medium"><a href="javascript: void(0);">{{$role->name}}</a></p>
@@ -130,6 +130,59 @@
         </div>
     </div>
 </div>
+
+
+
+
+{{-- update modal --}}
+<div class="modal fade" id="update_modal" tabindex="-1" role="dialog" aria-labelledby="role_update_modal" aria-hidden="true" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title text-center mx-auto text-white" id="role_update_modal">Update Role</h4>
+            </div>
+            <form action="{{ route('editrolesave') }}" method="post">
+                @csrf
+
+                <div class="modal-body">
+                    {{Form::number('id', '', ['class' => 'id', 'required' => 'required', 'hidden'])}}
+
+                    <div class="col-md-12">
+                        <div class="form-group row required">
+                            <label class="col-sm-4 col-form-label control-label">Name</label>
+                            <div class="col-sm-8">
+                                {{Form::text('name', '', ['class' => 'form-control name', 'required' => 'required'])}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group row required">
+                            <label class="col-sm-4 col-form-label control-label">Guard</label>
+                            <div class="col-sm-8">
+                                {{Form::text('guard_name', 'web', ['class' => 'form-control', 'required' => 'required', 'readonly'])}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group row required">
+                            <label for="role" class="col-sm-4 col-form-label control-label">Permissions</label>
+                            <div class="col-sm-8">
+                                {!! Form::select('permissions[]', $permissions,[], array('id' => 'permissions2','class' => 'form-control', 'required' => 'required','multiple')) !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary float-right mr-1" data-dismiss="modal">Cancel</button>
+                    <button data-toggle="modal" type="submit" class="btn btn-primary mr-2 float-right" id="formSubmit">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 
 
