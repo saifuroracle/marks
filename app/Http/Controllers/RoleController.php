@@ -13,8 +13,9 @@ class RoleController extends Controller
 {
     public function manageroles(Request $request)
     {
-        $roles = Role_c::paginate(10);
-        $paginator = getFormattedPaginatedArray($roles);
+        $rolesData = Role_c::paginate(10);
+        $roles = $rolesData->items();
+        $paginator = getFormattedPaginatedArray($rolesData);
 
         $permissionsData = Permission::orderBy('name','asc')->whereNull('deleted_at')->get();
         $permissions = $permissionsData->pluck('name', 'name');
@@ -60,43 +61,46 @@ class RoleController extends Controller
     }
 
 
-
-
-
-
-
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-
-    public function store(Request $request)
+    public function editrolesave(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required|unique:roles,name',
-            'permission' => 'required',
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|numeric',
+            'name' => 'required|string',
+            'guard_name' => 'required|string',
+            'permissions' => 'required',
         ]);
+        if ($validator->fails()) {
+            return back()->withInput()->with('fail', $validator->errors()->all());
+        }
 
-        $role = Role::create(['name' => $request->input('name')]);
-        $role->syncPermissions($request->input('permission'));
-        return redirect()->route('roles.index')
-            ->with('success', 'Role created successfully');
+        DB::beginTransaction();
+        try {
+            $role = Role::find($request->id);
+            $role->update([
+                'name' => $request->name,
+                'guard_name' => $request->guard_name,
+            ]);
+            DB::table('role_has_permissions')->where('role_id', $request->id)->update(['deleted_at'=> getNow()]);
+            $permissions = DB::table('permissions')->get();
+            foreach ($request->permissions as $key => $value)
+            {
+                DB::table('role_has_permissions')->insert(
+                    [
+                        'permission_id' => $permissions->where('name', $value)->pluck('id')->first(),
+                        'role_id' => $request->id
+                    ]
+                );
+            }
+            DB::commit();
+            return back()->with('success', ['Role updated successfully']);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->withInput()->with('fail', [$e->getMessage()]);
+        }
     }
 
-    /**
 
-     * Display the specified resource.
 
-     *
-
-     * @param  int  $id
-
-     * @return \Illuminate\Http\Response
-
-     */
 
     public function show($id)
     {

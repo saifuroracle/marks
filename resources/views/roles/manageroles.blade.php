@@ -63,6 +63,7 @@
 
             </div>
 
+
             @include('/includes/paginate')
 
         </div>

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\User;
 use App\Models\Permission;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Role as Role_c;
 
 class Role extends Model
 {
@@ -23,7 +24,7 @@ class Role extends Model
 
     public function getPermissionsCommaSeperatedAttribute()
     {
-        $permissions = $this->permissions()->get();
+        $permissions = $this->permissions()->wherePivot('deleted_at', null)->get();
         $arr = [];
         foreach ($permissions as $key => $item)
         {
