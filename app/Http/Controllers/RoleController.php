@@ -27,7 +27,7 @@ class RoleController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            // 'permissions' => 'required',
+            'permissions' => 'required',
             'guard_name' => 'required',
         ]);
         if ($validator->fails()) {

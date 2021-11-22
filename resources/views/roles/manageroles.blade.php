@@ -46,7 +46,7 @@
                                 </td>
                                 <td>{{ucwords($role->permissions_comma_seperated)}}</td>
                                 <td>
-                                    <div class="flex align-items-center list-user-action">
+                                    {{-- <div class="flex align-items-center list-user-action">
                                         <a class="iq-bg-success" title="" data-original-title="Edit"  href="#" data-toggle="modal" data-target="#update_modal"
                                                 data-id="{{$role->id}}"
                                                 data-name="{{$role->name}}"
@@ -60,7 +60,17 @@
                                         <form id="deleterole-{{$role->id}}" method="post" action="{{ route('deleterole', ['id'=>$role->id]) }}" style="display: none;">
                                                 @csrf
                                         </form>
-                                    </div>
+                                    </div> --}}
+
+                                    <a class="btn btn-primary btn-sm"  title="" data-original-title="Edit"  href="#" data-toggle="modal" data-target="#update_modal"
+                                        data-id="{{$role->id}}"
+                                        data-name="{{$role->name}}"
+                                        data-permissions="{{$role->permissions_comma_seperated}}"
+                                    >Edit</a>
+                                    {!! Form::open(['method' => 'POST','route' => ['deleterole', ['id'=>$role->id]],'style'=>'display:inline']) !!}
+                                        {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
+                                    {!! Form::close() !!}
+
                                 </td>
                             </tr>
                         @endforeach

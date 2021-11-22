@@ -26,3 +26,8 @@ Route::get('/manage-roles', [RoleController::class, 'manageroles'])->name('manag
 Route::post('/createrolesave', [RoleController::class, 'createrolesave'])->name('createrolesave');
 Route::post('/editrolesave', [RoleController::class, 'editrolesave'])->name('editrolesave');
 Route::post('/deleterole', [RoleController::class, 'deleterole'])->name('deleterole');
+
+// manage user routes
+Route::get('/manage-users', [UserController::class, 'manageusers'])->name('manageusers');
+Route::post('/createusersave', [UserController::class, 'createusersave'])->name('createusersave');
+Route::post('/editusersave', [UserController::class, 'editusersave'])->name('editusersave');

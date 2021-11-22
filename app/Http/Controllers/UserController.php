@@ -12,6 +12,21 @@ use Illuminate\Support\Arr;
 
 class UserController extends Controller
 {
+
+    public function manageusers(Request $request)
+    {
+        $usersData = User::paginate(10);
+        $users = $usersData->items();
+        $paginator = getFormattedPaginatedArray($usersData);
+
+        $rolesData = Role::orderBy('name','asc')->whereNull('deleted_at')->get();
+        $roles = $rolesData->pluck('name', 'name');
+
+        return view('users.manageusers', compact('users', 'paginator', 'roles'));
+    }
+
+
+
     /**
 
      * Display a listing of the resource.
