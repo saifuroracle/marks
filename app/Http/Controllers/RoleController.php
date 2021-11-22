@@ -53,7 +53,7 @@ class RoleController extends Controller
 
     public function manageroles(Request $request)
     {
-        $roles = Role::paginate(10);
+        $roles = Role::paginate(1);
         $paginator = getFormattedPaginatedArray($roles);
 
         $permissions = Permission::orderBy('name','asc')->whereNull('deleted_at')->get();

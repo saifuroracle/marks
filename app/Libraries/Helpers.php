@@ -830,4 +830,18 @@
     {
         return $paginator->current_page>1 ? (($paginator->current_page-1) * $paginator->record_per_page+$index+1) :  $index+1 ;
     }
+
+    function generate_all_req_to_query_params($arr)
+    {
+        $additional_query_params = '&';
+        foreach ($arr as $key => $value) {
+            // dd($key);
+            // dd($value);
+            if ($key!='page') {
+                $additional_query_params = $additional_query_params.$key.'='.$value.'&';
+            }
+        }
+        // dd($additional_query_params);
+        return $additional_query_params;
+    }
 ?>
