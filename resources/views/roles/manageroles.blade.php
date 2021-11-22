@@ -46,22 +46,6 @@
                                 </td>
                                 <td>{{ucwords($role->permissions_comma_seperated)}}</td>
                                 <td>
-                                    {{-- <div class="flex align-items-center list-user-action">
-                                        <a class="iq-bg-success" title="" data-original-title="Edit"  href="#" data-toggle="modal" data-target="#update_modal"
-                                                data-id="{{$role->id}}"
-                                                data-name="{{$role->name}}"
-                                                data-permissions="{{$role->permissions_comma_seperated}}"
-                                        >
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-                                        <a class="iq-bg-success"  onclick="event.preventDefault(); document.getElementById('deleterole-{{$role->id}}').submit();">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                        <form id="deleterole-{{$role->id}}" method="post" action="{{ route('deleterole', ['id'=>$role->id]) }}" style="display: none;">
-                                                @csrf
-                                        </form>
-                                    </div> --}}
-
                                     <a class="btn btn-primary btn-sm"  title="" data-original-title="Edit"  href="#" data-toggle="modal" data-target="#update_modal"
                                         data-id="{{$role->id}}"
                                         data-name="{{$role->name}}"
@@ -70,7 +54,6 @@
                                     {!! Form::open(['method' => 'POST','route' => ['deleterole', ['id'=>$role->id]],'style'=>'display:inline']) !!}
                                         {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
                                     {!! Form::close() !!}
-
                                 </td>
                             </tr>
                         @endforeach
