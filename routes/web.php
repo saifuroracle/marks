@@ -15,8 +15,8 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::post('/loginPost',  [AuthController::class, 'loginPost'])->name('loginPost');
 
+Route::post('/loginPost',  [AuthController::class, 'loginPost'])->name('loginPost');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
