@@ -115,11 +115,7 @@ class RoleController extends Controller
             $role->update([
                 'deleted_at'=> getNow(),
             ]);
-            $role->save();
-            // DB::table('roles')->where('id', (int) $request->id)->update(['deleted_at'=> getNow()]);
-            // DB::table('roles')->where('id', (int) $request->id)->update(['deleted_at'=> getNow()]);
-            // DB::table('roles')->where('id', (int) $request->id)->update(['deleted_at'=> '2021-11-22 14:22:15']);
-            // DB::table('roles')->where('id', $request->id)->update(['deleted'=> getNow()]);
+            DB::table('role_has_permissions')->where('role_id', (int) $request->id)->update(['deleted_at'=> getNow()]);
 
             DB::commit();
             return back()->with('success', ['Role softly deleted successfully']);
