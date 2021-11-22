@@ -1,3 +1,36 @@
+
+.form-group.required .control-label:after {  content:"*";  color:red;  }
+
+.select2-container {   width: 100% !important;    padding: 0; }
+/* .select2-selection__choice{ color: #000 !important;} */
+.select2-container--default .select2-selection--multiple{
+    background-color: #cac8c8 !important;
+    height: auto !important;
+}
+.select2-results__option {
+    color: #090909eb;
+}
+.select2-container--default .select2-selection--single{
+    height: auto !important;
+}
+
+.select2-search--dropdown .select2-search__field {
+    /* background: #8080802e !important; */
+    color: black !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered, .select2-container--default .select2-search--inline .select2-search__field {
+    /* background: #141414 !important; */
+    color: black !important;
+    width: 100% !important;
+}
+
+
+.list-group-item-action:focus, .list-group-item-action:hover {
+    background: #cac8c8;
+    color: #cac8c8;
+}
+
 .select2-container--default .select2-selection--multiple .select2-selection__rendered li{
     max-width: 100% !important;
 }
