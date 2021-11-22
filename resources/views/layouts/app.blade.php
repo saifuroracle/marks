@@ -15,7 +15,9 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
+    <link href="{{ asset('/assets/css/app.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('/assets/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
 
 </head>
 <body>
@@ -92,6 +94,7 @@
 
     <script type="text/javascript" src="{{ asset('/assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('/assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('/assets/js/select2.min.js') }}" type="text/javascript" ></script>
 
 </body>
 </html>

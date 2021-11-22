@@ -25,7 +25,7 @@
                 </a>
             </div>
 
-            <form action="{{route('manageroles')}}" method="get">
+            {{-- <form action="{{route('manageroles')}}" method="get">
                 <div class="col-md-4 input-group mb-3 float-right">
                     @csrf
                     <input type="text" id="search" name="search"  value="{{request('search')}}" placeholder="Search..." class="form-control"/>
@@ -35,7 +35,7 @@
                         </button>
                     </div>
                 </div>
-            </form>
+            </form> --}}
 
             <div class="table-responsive my-2">
                 <table class="table table-centered mb-0">
@@ -83,5 +83,110 @@
 </div>
 <!--body wrapper end-->
 
+
+
+{{-- create modal --}}
+<div class="modal fade" id="create_modal" tabindex="-1" role="dialog" aria-labelledby="role_create_modal" aria-hidden="true" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title text-center mx-auto text-white" id="role_create_modal">Create Role</h4>
+            </div>
+            <form action="{{ route('createrolesave') }}" method="post">
+                @csrf
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <div class="form-group row required">
+                            <label class="col-sm-4 col-form-label control-label">Name</label>
+                            <div class="col-sm-8">
+                                {{Form::text('name', '', ['class' => 'form-control', 'required' => 'required'])}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group row required">
+                            <label class="col-sm-4 col-form-label control-label">Guard</label>
+                            <div class="col-sm-8">
+                                {{Form::text('guard_name', 'web', ['class' => 'form-control', 'required' => 'required', 'readonly'])}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group row required">
+                            <label for="role" class="col-sm-4 col-form-label control-label">Permissions</label>
+                            <div class="col-sm-8">
+                                {!! Form::select('permissions[]', $permissions,[], array('id' =>'permissions','class' => 'form-control', 'required' => 'required','multiple')) !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary float-right mr-1" data-dismiss="modal">Cancel</button>
+                    <button data-toggle="modal" type="submit" class="btn btn-primary mr-2 float-right" id="formSubmit">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function(){
+        $('#permissions').select2({
+            dropdownParent: $("#create_modal .modal-body"),
+            placeholder: {
+                id: '', // the value of the option
+                text: '--Select Permissions--'
+            },
+            // maximumSelectionLength: 1,
+            allowClear: true,
+            language: {
+            noResults: function (params) {
+                return "No Data Found!";
+            }
+            },
+        });
+
+        $('#permissions2').select2({
+            dropdownParent: $("#update_modal .modal-body"),
+            placeholder: {
+                id: '', // the value of the option
+                text: '--Select Permissions--'
+            },
+            tags: true,
+            // maximumSelectionLength: 1,
+            allowClear: true,
+            language: {
+                noResults: function (params) {
+                    return "No Data Found!";
+                }
+            },
+        });
+
+        $('#update_modal').on('show.bs.modal', function (event) {
+              var button = $(event.relatedTarget) ;
+
+              var id = button.data('id') ;
+              var name = button.data('name') ;
+              var permissions = button.data('permissions') ;
+              permissions = permissions.split(', ')
+
+              var modal = $(this);
+
+              modal.find('.modal-body .id').val(id);
+              modal.find('.modal-body .name').val(name);
+
+              permissions2Defaulter(permissions)
+        });
+    });
+
+    function  permissions2Defaulter(val)
+    {
+        $('#permissions2').val(val).trigger('change');
+    }
+</script>
 
 @endsection
