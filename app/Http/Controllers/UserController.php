@@ -100,7 +100,6 @@ class UserController extends Controller
         DB::beginTransaction();
         try {
             $user->update($input);
-            // $user->assignRole($request->input('roles'));
             DB::table('model_has_roles')->where('model_id', (int) $request->id)->update(['deleted_at' => getNow()]);
             $roles = DB::table('roles')->get();
             foreach ($request->roles as $key => $value)
