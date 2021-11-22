@@ -100,6 +100,24 @@ class RoleController extends Controller
     }
 
 
+    public function deleterole(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|numeric|exists:roles,id',
+        ]);
+        if ($validator->fails()) {
+            return back()->withInput()->with('fail', $validator->errors()->all());
+        }
+
+        DB::beginTransaction();
+        try {
+            Role::find($request->id)->update(['deleted_at' => getNow()]);
+            return back()->with('success', ['Role softly deleted successfully']);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->withInput()->with('fail', [$e->getMessage()]);
+        }
+    }
 
 
 }
